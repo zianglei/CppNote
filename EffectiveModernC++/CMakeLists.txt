@@ -1,3 +1,6 @@
 add_executable(Item1 Item1.cpp)
 add_executable(Item2 Item2.cpp)
+add_executable(Item3 Item3.cpp)
+add_executable(Item4 Item4.cpp)
+add_executable(Item5 Item5.cpp)
 add_executable(Item39 Item39.cpp)

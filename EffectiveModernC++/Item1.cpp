@@ -86,6 +86,7 @@ void TypeOnlyF(T param) {
 /**
  * 对于模板参数类型是指针或者引用的情况，如果传入的实参具有引用属性，则将引用去除，再决定T的类型
  * 如果ParamType带有const类型，则T再推导为const int就没有意义了，因为常量性已经满足，所以T一律为int
+ * 对于指针情况，如果ParamType带有const类型，且是指向常量的指针，则T也是指向常量的指针，如果是指针本身是常量的，则也会去除const属性
  */
 void ParamTypeIsAPointerOrRefer() {
     std::cout << "<<<< ParamType is a pointer or reference: " << std::endl;
@@ -93,12 +94,15 @@ void ParamTypeIsAPointerOrRefer() {
     int x = 27;
     const int cx = x;
     const int &rx = x;
+    int* const px = &x;
     std::cout << "x: " << std::endl;
     NoConstF(x);
     std::cout << "cx: " << std::endl;
     NoConstF(cx);
     std::cout << "rx: " << std::endl;
     NoConstF(rx);
+    std::cout << "px: " << std::endl;
+    NoConstF(px);
 
     std::cout << "<<<<<<< ParamType has const: " << std::endl;
     std::cout << "x: " << std::endl;
@@ -107,6 +111,8 @@ void ParamTypeIsAPointerOrRefer() {
     ConstF(cx);
     std::cout << "rx: " << std::endl;
     ConstF(rx);
+    std::cout << "px: " << std::endl;
+    ConstF(px);
 
     std::cout << "<<<<<<< ParamType is a pointer" << std::endl;
     const int* p = &x;

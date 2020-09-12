@@ -42,6 +42,7 @@ type_name()
 
 /*
  * 对于auto来说，其型别推导方式和模板函数型别推导方式相同，除了多了一个std::initializer_list<T>类型
+ * 但是如果auto作为lambda表达式的返回值类型推导，则只具有模板类型推导的规则，不支持std::initializer_list
  */
 
 int main() {
