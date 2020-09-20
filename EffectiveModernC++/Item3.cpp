@@ -52,7 +52,7 @@ auto authAndAccess(Container& c, Index i) -> decltype(c[i]) {
 }
 
 /*
- * 在c++14中，可以直接使用auto进行型别推导
+ * 在c++14中，可以直接使用auto进行函数返回值的型别推导
  * 但是根据auto的型别推导规则，返回型别被推导为int，当调用此函数的时候函数的返回值就为右值，无法修改
  *
  * 此函数还无法接受右值引用
@@ -63,11 +63,12 @@ auto authAndAccess14(Container& c, Index i) {
 }
 
 /**
+ * C++14
  * 因此要使用decltype(auto)返回int&
  * decltype(auto)的意思是使用auto指定欲实施推导的类型，而推导过程采用的是decltype的规则
  */
 template<typename Container, typename Index>
-decltype(auto) authAndAccessDecltype(Container& c, Index i) {
+decltype(auto) authAndAccessDecltype14(Container& c, Index i) {
     return c[i];
 }
 
@@ -75,12 +76,12 @@ decltype(auto) authAndAccessDecltype(Container& c, Index i) {
  * 然后使用万能引用，从而使模板函数接受右值，并且对于万能引用要使用std::forward
  */
 template <typename Container, typename Index>
-decltype(auto) authAndAccessRV(Container&& c, Index i) {
+decltype(auto) authAndAccessRV14(Container&& c, Index i) {
     return std::forward<Container>(c)[i];
 }
 
 /*
- * C++11版本
+ * C++11版本，此处的auto对类型推断并没有作用，主要是表示使用了返回值型别尾序用法
  */
 template <typename Container, typename Index>
 auto authAndAccessRV11(Container&& c, Index i) -> decltype(std::forward<Container>(c)[i])
